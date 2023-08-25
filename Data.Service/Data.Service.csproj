@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <NoWarn>$(NoWarn);CA1848</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.55.0" />
+    <PackageReference Include="Grpc.AspNetCore.Web" Version="2.55.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.55.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data.EF\Data.EF.csproj" />
+    <ProjectReference Include="..\Data.Mongo\Data.Mongo.csproj" />
+  </ItemGroup>
+
+</Project>

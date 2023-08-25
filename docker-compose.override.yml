@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  database.service:
+    x-develop:
+      watch:
+        - action: sync
+          path: ./Data.Base
+          target: /app/
+        - action: rebuild
+          path: Data.Base.csproj
+        - action: sync
+          path: ./Data.EF
+          target: /app/
+        - action: rebuild
+          path: Data.EF.csproj
+        - action: sync
+          path: ./Data.Mongo
+          target: /app/
+        - action: rebuild
+          path: Data.Mongo.csproj
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Kestrel__Endpoints__Http__Protocols=Http2
+      - Kestrel__Endpoints__Http__Url=http://*:443
