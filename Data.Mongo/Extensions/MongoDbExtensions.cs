@@ -56,8 +56,8 @@ public static class MongoDbExtensions
 
     internal static async Task<IChangeStreamCursor<ChangeStreamDocument<T>>> GetChangeStreamCursorAsync<T>(this IMongoCollection<T> collection, FilterDefinition<ChangeStreamDocument<T>> filter, CancellationToken cancellationToken = default)
     {
-        if (collection == null) throw new ArgumentNullException(nameof(collection));
-        if (filter == null) throw new ArgumentNullException(nameof(filter));
+        ArgumentNullException.ThrowIfNull(collection);
+        ArgumentNullException.ThrowIfNull(filter);
         var pipeline = new EmptyPipelineDefinition<ChangeStreamDocument<T>>().Match(filter);
         var options = new ChangeStreamOptions() { FullDocument = ChangeStreamFullDocumentOption.UpdateLookup };
         var cursor = await collection!.WatchAsync(pipeline, options, cancellationToken).ConfigureAwait(false);

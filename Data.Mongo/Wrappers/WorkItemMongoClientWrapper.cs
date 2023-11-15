@@ -1,5 +1,5 @@
 ﻿using Data.Base.Models;
-using Data.Base.Exceptions;
+using Data.Base.Extensions;
 using Data.Mongo.Abstractions;
 using Data.Mongo.Config;
 using Data.Mongo.Models;

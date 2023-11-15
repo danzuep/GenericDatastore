@@ -1,33 +1,16 @@
 ﻿using Microsoft.Extensions.Logging;
-using System.Text.Json.Serialization;
-using System.Text.Json;
+using System.Diagnostics.CodeAnalysis;
 
-namespace Data.Base.Exceptions;
+namespace Data.Base.Extensions;
 
 /// <summary>
 /// <see href="https://learn.microsoft.com/en-us/dotnet/core/extensions/high-performance-logging"/>
 /// </summary>
-[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+[ExcludeFromCodeCoverage]
 public static class LoggerExtensions
 {
-    private static readonly string _nl = Environment.NewLine;
-    private static readonly JsonSerializerOptions _serializerOptions = new()
-    {
-        WriteIndented = true,
-        ReferenceHandler = ReferenceHandler.Preserve
-    };
-
-    public static string ToSerializedString(this object? obj) =>
-        obj != null ? JsonSerializer.Serialize(obj, _serializerOptions) : string.Empty;
-
-    public static string ToEnumeratedString<T>(this IEnumerable<T> data, string div = ", ") =>
-        data is null ? string.Empty : string.Join(div, data.Select(o => o?.ToString() ?? string.Empty));
-
     public static void LogResults<T>(this ILogger logger, T? obj, LogLevel logLevel = LogLevel.Information) where T : class =>
         logger.Log(logLevel, "\"{Name}\": {JsonSerializedObject}", typeof(T).Name, obj.ToSerializedString());
-
-    public static string ToJson(this object obj, string? name = null) =>
-        string.IsNullOrEmpty(name) ? obj.ToSerializedString() : $"{{{_nl}\"{name}\": {obj.ToSerializedString()}{_nl}}}";
 
     private static readonly EventId _logEvent = new(id: 0, name: nameof(LogAction));
 

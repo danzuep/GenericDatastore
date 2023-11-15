@@ -7,8 +7,7 @@ namespace Data.Base.Extensions
     {
         public static string LengthCheck(this string? value, int maxLength)
         {
-            if (value == null)
-                throw new ArgumentNullException(nameof(value));
+            ArgumentNullException.ThrowIfNull(value);
             if (value.Length > maxLength)
                 throw new LengthValidationException(maxLength);
             return value;
@@ -16,8 +15,7 @@ namespace Data.Base.Extensions
 
         public static void AddHistory(this DatastoreItem? item)
         {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
+            ArgumentNullException.ThrowIfNull(item);
             var history = new DatastoreItemHistory
             {
                 State = item.State,

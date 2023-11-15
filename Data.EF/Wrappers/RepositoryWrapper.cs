@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Data.EF.Abstractions;
 using Data.EF.Entities;
 using Data.EF.Extensions;
+using Data.Base.Extensions;
 
 namespace Data.EF.Wrappers;
 
@@ -171,8 +172,7 @@ internal sealed class RepositoryWrapper<T> : IRepositoryWrapper<T> where T : Ent
 
     public async Task WithinTransactionAsync(Func<Task> action, CancellationToken cancellationToken = default)
     {
-        if (action == null)
-            throw new ArgumentNullException(nameof(action));
+        ArgumentNullException.ThrowIfNull(action);
 
         try
         {

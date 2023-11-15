@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Mongo", "Data.Mongo\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Mongo.Tests", "Data.Mongo.Tests\Data.Mongo.Tests.csproj", "{B45AC2C0-29AC-4564-B204-F6FA39506625}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.EF.Tests", "Data.EF.Tests\Data.EF.Tests.csproj", "{D2B49DA5-5DCE-4F1E-BE78-6045240A7BAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{B45AC2C0-29AC-4564-B204-F6FA39506625}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B45AC2C0-29AC-4564-B204-F6FA39506625}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B45AC2C0-29AC-4564-B204-F6FA39506625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2B49DA5-5DCE-4F1E-BE78-6045240A7BAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2B49DA5-5DCE-4F1E-BE78-6045240A7BAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2B49DA5-5DCE-4F1E-BE78-6045240A7BAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2B49DA5-5DCE-4F1E-BE78-6045240A7BAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

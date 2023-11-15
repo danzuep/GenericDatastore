@@ -27,8 +27,7 @@ public sealed class JobQueueMongoService : IDisposable //IDatastoreRepository<Wo
 
     public JobQueueMongoService(IMongoClientWrapper<EntityItem> mongoClientWrapper, ILogger<JobQueueMongoService>? logger = null)
     {
-        if (mongoClientWrapper == null)
-            throw new ArgumentNullException(nameof(mongoClientWrapper));
+        ArgumentNullException.ThrowIfNull(mongoClientWrapper);
         _logger = logger ?? NullLogger<JobQueueMongoService>.Instance;
         _dbOptions = mongoClientWrapper.DbOptions;
         _dbInitialization = mongoClientWrapper.InitializeDbAsync();
@@ -155,8 +154,7 @@ public sealed class JobQueueMongoService : IDisposable //IDatastoreRepository<Wo
 
     internal async Task<IAsyncCursor<EntityItem>?> FindAsync(FilterDefinition<EntityItem> filter)
     {
-        if (filter == null)
-            throw new ArgumentNullException(nameof(filter));
+        ArgumentNullException.ThrowIfNull(filter);
         await InitializedAsync().ConfigureAwait(false);
         var results = await _jobs!.FindAsync(filter).ConfigureAwait(false);
         return results;
@@ -206,10 +204,8 @@ public sealed class JobQueueMongoService : IDisposable //IDatastoreRepository<Wo
 
     private static FilterDefinition<T> And<T>(FilterDefinitionBuilder<T> builder, params FilterDefinition<T>?[] filters)
     {
-        if (builder == null)
-            throw new ArgumentNullException(nameof(builder));
-        if (filters == null)
-            throw new ArgumentNullException(nameof(filters));
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNull(filters);
         var validFilters = filters.Where(filter => filter != null);
         var filter = validFilters.Any() ? builder.And(validFilters) : builder.Empty;
         return filter;
