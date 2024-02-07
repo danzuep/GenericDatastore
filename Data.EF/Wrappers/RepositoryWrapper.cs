@@ -117,6 +117,15 @@ internal sealed class RepositoryWrapper<T> : IRepositoryWrapper<T> where T : Ent
         return count;
     }
 
+    public async Task<int> CreateAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+    {
+        if (!_dbInitialization.IsCompleted)
+            await _dbInitialization.ConfigureAwait(false);
+        await _dbContext.AddRangeAsync(entities, cancellationToken).ConfigureAwait(false);
+        var count = await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        return count;
+    }
+
     public async ValueTask<IQueryable<T>> QueryAsync()
     {
         if (!_dbInitialization.IsCompleted)

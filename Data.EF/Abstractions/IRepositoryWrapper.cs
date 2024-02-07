@@ -2,17 +2,19 @@
 
 namespace Data.EF.Abstractions;
 
-internal interface IRepositoryWrapper<T> where T : EntityBase, new()
+internal interface IRepositoryWrapper<TDal> where TDal : EntityBase, new()
 {
-    ValueTask<IQueryable<T>> QueryAsync();
+    ValueTask<IQueryable<TDal>> QueryAsync(); //string? filter = null
 
-    Task<int> CreateAsync(T entity, CancellationToken cancellationToken = default);
+    Task<int> CreateAsync(TDal entity, CancellationToken cancellationToken = default);
 
-    Task<int> UpdateAsync(T entity, CancellationToken cancellationToken = default);
+    Task<int> CreateAsync(IEnumerable<TDal> entities, CancellationToken cancellationToken = default);
 
-    Task<int> UpdateAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+    Task<int> UpdateAsync(TDal entity, CancellationToken cancellationToken = default);
 
-    Task<int> DeleteAsync(T entity, CancellationToken cancellationToken = default);
+    Task<int> UpdateAsync(IEnumerable<TDal> entities, CancellationToken cancellationToken = default);
 
-    Task<int> DeleteAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+    Task<int> DeleteAsync(TDal entity, CancellationToken cancellationToken = default);
+
+    Task<int> DeleteAsync(IEnumerable<TDal> entities, CancellationToken cancellationToken = default);
 }

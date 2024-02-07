@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace Data.Base.Exceptions
+﻿namespace Data.Base.Exceptions
 {
     /// <summary>
     /// This exception class is thrown by the application if it encounters an unrecoverable error.
@@ -17,22 +15,17 @@ namespace Data.Base.Exceptions
         }
 
         /// <inheritdoc />
-        public InternalException(string message) : base(message)
+        public InternalException(string? message) : base(message)
         {
         }
 
         /// <inheritdoc />
-        public InternalException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        /// <inheritdoc />
-        protected InternalException(SerializationInfo info, StreamingContext context) : base(info, context)
+        public InternalException(string? message, Exception? innerException) : base(message, innerException)
         {
         }
 
         /// <inheritdoc cref="Exception(string, Exception)"/>
-        public InternalException(Exception innerException) : base(innerException.Message, innerException)
+        public InternalException(Exception? innerException) : base(innerException?.Message, innerException)
         {
         }
     }

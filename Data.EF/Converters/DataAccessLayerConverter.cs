@@ -20,6 +20,9 @@ public static class DataAccessLayerConverter
         return result;
     }
 
+    internal static IEnumerable<DatastoreItem> ToJobItem(this IEnumerable<EntityItem> entities) =>
+        entities.Select(m => m.ToJobItem());
+
     internal static EntityItem ToJobEntity(this DatastoreItem model)
     {
         var result = new EntityItem
@@ -33,4 +36,7 @@ public static class DataAccessLayerConverter
         result.Updated = DateTime.UtcNow;
         return result;
     }
+
+    internal static IEnumerable<EntityItem> ToJobEntity(this IEnumerable<DatastoreItem> models) =>
+        models.Select(m => m.ToJobEntity());
 }

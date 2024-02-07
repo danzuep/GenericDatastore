@@ -6,6 +6,7 @@ using Data.EF.Abstractions;
 using Data.EF.Wrappers;
 using Data.EF.Entities;
 using Data.Base.Models;
+using Data.Base.Abstractions;
 
 namespace Data.EF;
 
@@ -34,9 +35,8 @@ public static class ServiceCollectionExtensions
                 break;
         }
         services.AddHealthChecks().AddDbContextCheck<RepositoryDbContext>();
-        services.AddSingleton<IRepositoryWrapper<EntityItem>, RepositoryWrapper<EntityItem>>();
-        //services.AddSingleton<IDatastoreRepository<DatastoreItem, DatastoreItem>>((sp) =>
-        //    new ItemDbService(sp.GetRequiredService<IRepositoryWrapper<EntityItem>>()));
+        services.AddScoped<IRepositoryWrapper<EntityItem>, RepositoryWrapper<EntityItem>>();
+        services.AddSingleton<IDatastoreRepository<DatastoreItem>, EfRepositoryService>();
         //services.AddDatabaseDeveloperPageExceptionFilter();
         return services;
     }
