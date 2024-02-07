@@ -1,8 +1,7 @@
 ﻿namespace Data.Base.Models
 {
-    public record DatabaseOptions
+    public class DatabaseOptions
     {
-        /// <summary>CI_ENVIRONMENT_SLUG</summary>
         public string Environment { get; set; } = string.Empty;
 
         public DatastoreType Type { get; set; }

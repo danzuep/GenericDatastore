@@ -24,6 +24,6 @@ public static class SerializerExtensions
     public static string ToEnumeratedString<T>(this IEnumerable<T> data, string delimiter = ", ") =>
         data is null ? string.Empty : string.Join(delimiter, data.Select(o => o?.ToString() ?? string.Empty));
 
-    public static string ToParameters(this IDictionary<string, string> keyValuePairs, string delimiter = "&", string divider = "=") =>
+    public static string ToQueryString(this IDictionary<string, string> keyValuePairs, string delimiter = "&", string divider = "=") =>
         keyValuePairs is null ? string.Empty : string.Join(delimiter, keyValuePairs.Select(kvp => $"{kvp.Key}{divider}{kvp.Value}"));
 }

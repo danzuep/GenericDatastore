@@ -6,10 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.55.0" />
-    <PackageReference Include="Grpc.AspNetCore.Web" Version="2.55.0" />
-    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.55.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" PrivateAssets="all" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.60.0" />
+    <PackageReference Include="Grpc.AspNetCore.Web" Version="2.60.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.60.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

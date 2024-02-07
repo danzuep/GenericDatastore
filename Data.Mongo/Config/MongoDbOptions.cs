@@ -2,7 +2,7 @@
 
 namespace Data.Mongo.Config
 {
-    public sealed record MongoDbOptions : DatabaseOptions
+    public sealed class MongoDbOptions : DatabaseOptions
     {
         internal string MongoDbEndpoint { get; set; } = DatastoreConnectionOptions.LocalMongoDbEndpoint;
 
