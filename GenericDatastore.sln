@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Service", "Data.Service\Data.Service.csproj", "{365DE936-0212-4F46-AA14-2E4C89DAC175}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{93C04FC4-DC38-48EA-96CA-6D6F603A2AC2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Base", "Data.Base\Data.Base.csproj", "{163B0A76-8FAD-4AE3-B4E3-1275C2D3B817}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.EF", "Data.EF\Data.EF.csproj", "{6FC18DC1-C9E8-4A2A-B1B5-2BECEBDBECD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.EF.Tests", "Data.EF.Tests\Data.EF.Tests.csproj", "{D2B49DA5-5DCE-4F1E-BE78-6045240A7BAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Mongo", "Data.Mongo\Data.Mongo.csproj", "{FDEDFC27-ED91-4D62-AFF2-594A9BE499F1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Mongo.Tests", "Data.Mongo.Tests\Data.Mongo.Tests.csproj", "{B45AC2C0-29AC-4564-B204-F6FA39506625}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.EF.Tests", "Data.EF.Tests\Data.EF.Tests.csproj", "{D2B49DA5-5DCE-4F1E-BE78-6045240A7BAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Service", "Data.Service\Data.Service.csproj", "{365DE936-0212-4F46-AA14-2E4C89DAC175}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{93C04FC4-DC38-48EA-96CA-6D6F603A2AC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

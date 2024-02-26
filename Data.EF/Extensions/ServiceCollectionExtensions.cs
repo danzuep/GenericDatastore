@@ -18,6 +18,13 @@ public static class ServiceCollectionExtensions
         services.Configure<DatabaseOptions>(configuration);
         var postgresConnection = configuration.GetConnectionString(nameof(DatastoreConnectionOptions.DatastoreEndpoint));
         var datastoreType = !string.IsNullOrWhiteSpace(postgresConnection) ? DatastoreType.PostgreSql : DatastoreType.Sqlite;
+        services.AddEntityFrameworkDatabase(datastoreType, postgresConnection);
+        //services.AddDatabaseDeveloperPageExceptionFilter();
+        return services;
+    }
+
+    internal static IServiceCollection AddEntityFrameworkDatabase(this IServiceCollection services, DatastoreType datastoreType, string? postgresConnection)
+    {
         switch (datastoreType)
         {
             case DatastoreType.PostgreSql:
@@ -37,7 +44,6 @@ public static class ServiceCollectionExtensions
         services.AddHealthChecks().AddDbContextCheck<RepositoryDbContext>();
         services.AddScoped<IRepositoryWrapper<EntityItem>, RepositoryWrapper<EntityItem>>();
         services.AddSingleton<IDatastoreRepository<DatastoreItem>, EfRepositoryService>();
-        //services.AddDatabaseDeveloperPageExceptionFilter();
         return services;
     }
 }

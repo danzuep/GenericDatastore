@@ -61,6 +61,19 @@ internal sealed record EntityItem : EntityBase
     [Range(0, int.MaxValue)]
     public int? DelaySeconds { get; set; }
 
+    /// <summary>
+    /// Truncated hexadecimal string with up to 16^32 combinations.
+    /// </summary>
+    /// <param name="count">Base 16 exponent.</param>
+    /// <returns>Truncated hexadecimal string</returns>
+    public static string GetHexId(byte count = 32)
+    {
+        if (count > 32)
+            count = 32;
+        var uuid = Guid.NewGuid().ToString("n", null)[..count];
+        return uuid;
+    }
+
     [ExcludeFromCodeCoverage]
     public override string ToString() => $"Key={Key}, Region={Region}, Name={Topic}, ID={Id}, State={State}, Payload=\"{Payload}\".";
 }
