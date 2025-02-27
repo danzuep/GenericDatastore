@@ -19,6 +19,7 @@ namespace Data.Service
         {
             services.AddHttpsRedirection(options =>
                 options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect);
+            services.AddHttpLogging();
 
             services.AddAuthentication();
             services.AddAuthorization();

@@ -20,10 +20,10 @@ public static class JobStateTypeConverter
     }
 
     public static Lazy<ActiveRestingState[]> AllJobStateTypes =>
-        new(() => (ActiveRestingState[])Enum.GetValues(typeof(ActiveRestingState)));
+        new(() => Enum.GetValues<ActiveRestingState>());
 
     public static Lazy<JobCommand[]> AllJobUpdateTypes =>
-        new(() => (JobCommand[])Enum.GetValues(typeof(JobCommand)));
+        new(() => Enum.GetValues<JobCommand>());
 
     public static readonly List<ActiveRestingState> ActiveStates = new()
     {
