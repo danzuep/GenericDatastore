@@ -1,5 +1,4 @@
-﻿using Data.Base.Models;
-using Data.Service.Extensions;
+﻿using Data.Service.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -31,7 +30,6 @@ namespace Data.Service
             services.AddGrpcReflection();
 
             services.AddJobScheduler(_configuration);
-            services.AddScoped<ICacheService<JobState>, MemoryCacheService<JobState>>();
             // https://learn.microsoft.com/en-us/dotnet/core/extensions/scoped-service?pivots=dotnet-7-0
             //services.AddScoped<IScopedProcessingService, ApiService>();
             //services.AddHostedService<ScopedBackgroundService>();
