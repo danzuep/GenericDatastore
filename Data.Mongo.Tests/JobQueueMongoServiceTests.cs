@@ -1,11 +1,8 @@
-﻿global using NSubstitute;
+﻿global using Data.Mongo.Models;
+global using NSubstitute;
 global using NUnit.Framework;
-global using Data.Mongo.Models;
-using System.Reactive;
-using System.Linq;
 using Data.Base.Models;
 using Data.Mongo.Abstractions;
-using Data.Mongo.Wrappers;
 using Data.Mongo.Config;
 
 namespace Data.Mongo.Tests
@@ -42,22 +39,22 @@ namespace Data.Mongo.Tests
             await _dbService.DeleteAsync(jobItem, cancellationToken);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.IsAssignableFrom<DatastoreItem>(result);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.AssignableFrom<DatastoreItem>());
         }
 
         [Test]
         public async Task DeleteAsync_TestsBulkDelete_ExpectsOne()
         {
             var result = await _dbService.DeleteAsync(_jobItemStub, CancellationToken.None);
-            Assert.AreEqual(false, result);
+            Assert.That(result, Is.False);
         }
 
         [Test]
         public async Task QueryAsync_TestsValidTopic_ExpectsValidEntityItem()
         {
             var workItems = await _dbService.QueryAsync().ConfigureAwait(false);
-            Assert.NotNull(workItems);
+            Assert.That(workItems, Is.Not.Null);
         }
 
         [Test]
@@ -67,8 +64,8 @@ namespace Data.Mongo.Tests
             await foreach (var jobItem in _dbService.MonitorAsync(_testId, CancellationToken.None).ConfigureAwait(false))
             {
                 // Assert
-                Assert.IsNotNull(jobItem);
-                Assert.IsAssignableFrom<DatastoreItem>(jobItem);
+                Assert.That(jobItem, Is.Not.Null);
+                Assert.That(jobItem, Is.AssignableFrom<DatastoreItem>());
                 break;
             }
         }
@@ -81,8 +78,8 @@ namespace Data.Mongo.Tests
         //    await foreach (var jobItem in _dbService.JobUpdates.Value.ToAsyncEnumerable().ConfigureAwait(false))
         //    {
         //        // Assert
-        //        Assert.IsNotNull(jobItem);
-        //        Assert.IsAssignableFrom<DatastoreItem>(jobItem);
+        //        Assert.That(jobItem, Is.Not.Null);
+        //        Assert.That(jobItem, Is.AssignableFrom<DatastoreItem>());
         //        break;
         //    }
         //}

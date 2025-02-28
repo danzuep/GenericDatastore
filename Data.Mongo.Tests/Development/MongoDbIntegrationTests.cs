@@ -1,17 +1,19 @@
-﻿using Microsoft.Extensions.Logging;
-using MongoDB.Driver.Linq;
-using Data.Base.Models;
-using Data.Mongo.Wrappers;
+﻿using Data.Base.Models;
 using Data.Mongo.Config;
+using Data.Mongo.Wrappers;
+using Microsoft.Extensions.Logging;
+using MongoDB.Driver.Linq;
 
 namespace Data.Mongo.Tests.Development;
 
-// For local testing use docker-compose, or add a docker instance of mongo with ```sh
+// For local testing use docker-compose, or add a docker instance of mongo with
+// ```sh
 // docker network create test-mongo-cluster
 // docker run --name mongo1 -p 27021:27017 --net test-mongo-cluster -d mongo:latest mongod --replSet test-mongo-set
 // docker run --name mongo2 -p 27022:27017 --net test-mongo-cluster -d mongo:latest mongod --replSet test-mongo-set
 // docker exec -it mongo1 mongosh
-// ``` and configure it, then comment out the "Ignore" attribute below.
+// ```
+// and configure it, then comment out the "Ignore" attribute below.
 [Ignore("Disabled for CI pipelines, only for local testing")]
 public sealed class MongoDbIntegrationTests : IDisposable
 {
@@ -40,7 +42,7 @@ public sealed class MongoDbIntegrationTests : IDisposable
     public async Task SetupAsync()
     {
         var success = await _dbService.CreateAsync(_jobItemStub, CancellationToken.None).ConfigureAwait(false);
-        Assert.True(success);
+        Assert.That(success, Is.True);
     }
 
     [TestCase(1)]
@@ -48,18 +50,18 @@ public sealed class MongoDbIntegrationTests : IDisposable
     {
         var jobItemStub = _jobItemStub with { Progress = progress };
         var success = await _dbService.UpdateAsync(jobItemStub, CancellationToken.None);
-        Assert.True(success);
+        Assert.That(success, Is.True);
         var result = await _dbService.ReadAsync(_testId, _testTopic, CancellationToken.None);
-        Assert.NotNull(result);
-        Assert.IsAssignableFrom<DatastoreItem>(result);
-        Assert.AreEqual(progress, result.Progress);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result, Is.AssignableFrom<DatastoreItem>());
+        Assert.That(result.Progress, Is.EqualTo(progress));
     }
 
     [OneTimeTearDown]
     public async Task TeardownAsync()
     {
         var success = await _dbService.DeleteAsync(_jobItemStub, CancellationToken.None).ConfigureAwait(false);
-        Assert.True(success);
+        Assert.That(success, Is.True);
     }
 
     [Test]
@@ -67,9 +69,9 @@ public sealed class MongoDbIntegrationTests : IDisposable
     {
         var query = await _dbService.QueryAsync().ConfigureAwait(false);
         var result = query.AsEnumerable().FirstOrDefault();
-        Assert.NotNull(result);
+        Assert.That(result, Is.Not.Null);
         var count = query.Count();
-        Assert.Greater(count, 0);
+        Assert.That(count, Is.GreaterThan(0));
     }
 
     [Test]
@@ -77,8 +79,8 @@ public sealed class MongoDbIntegrationTests : IDisposable
     {
         await foreach (var jobItem in _dbService.MonitorAsync(_testId).ConfigureAwait(false))
         {
-            Assert.IsNotNull(jobItem);
-            Assert.IsAssignableFrom<DatastoreItem>(jobItem);
+            Assert.That(jobItem, Is.Not.Null);
+            Assert.That(jobItem, Is.AssignableFrom<DatastoreItem>());
             break;
         }
     }
@@ -90,8 +92,8 @@ public sealed class MongoDbIntegrationTests : IDisposable
     //    await foreach (var jobItem in _dbService.JobUpdates.Value.ToAsyncEnumerable().ConfigureAwait(false))
     //    {
     //        // Assert
-    //        Assert.IsNotNull(jobItem);
-    //        Assert.IsAssignableFrom<DatastoreItem>(jobItem);
+    //        Assert.That(jobItem, Is.Not.Null);
+    //        Assert.That(jobItem, Is.AssignableFrom<DatastoreItem>());
     //        break;
     //    }
     //}

@@ -1,9 +1,9 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
-using MongoDB.Driver.Core.Clusters;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Data.Mongo.Wrappers;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Core.Clusters;
+using MongoDB.Driver.Linq;
 
 namespace Data.Mongo.Tests
 {
@@ -45,22 +45,22 @@ namespace Data.Mongo.Tests
             return mongoCollectionMock;
         }
 
-        public static IMongoQueryable<T> GetMongoQueryableMock<T>(IQueryable<T> queryableStub)
-        {
-            var mongoQueryableMock = Substitute.For<IMongoQueryable<T>>();
-            mongoQueryableMock.Provider.Returns(queryableStub.Provider);
-            mongoQueryableMock.Expression.Returns(queryableStub.Expression);
-            mongoQueryableMock.ElementType.Returns(queryableStub.ElementType);
-            mongoQueryableMock.GetEnumerator().Returns(queryableStub.GetEnumerator());
-            return mongoQueryableMock;
-        }
+        //public static IMongoQueryable<T> GetMongoQueryableMock<T>(IQueryable<T> queryableStub)
+        //{
+        //    var mongoQueryableMock = Substitute.For<IMongoQueryable<T>>();
+        //    mongoQueryableMock.Provider.Returns(queryableStub.Provider);
+        //    mongoQueryableMock.Expression.Returns(queryableStub.Expression);
+        //    mongoQueryableMock.ElementType.Returns(queryableStub.ElementType);
+        //    mongoQueryableMock.GetEnumerator().Returns(queryableStub.GetEnumerator());
+        //    return mongoQueryableMock;
+        //}
 
         [Test]
         public void AsQueryable_TestsMongoCollection_ExpectsValidCollection()
         {
             var mongoCollectionMock = GetQueryableMongoCollectionMock<EntityItem>();
             var jobsQuery = mongoCollectionMock.AsQueryable();
-            Assert.NotNull(jobsQuery);
+            Assert.That(jobsQuery, Is.Not.Null);
         }
 
         [Test]
