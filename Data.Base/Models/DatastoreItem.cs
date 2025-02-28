@@ -10,7 +10,7 @@ public sealed record DatastoreItem
 
     public string Payload { get; set; } = string.Empty;
 
-    public ActiveRestingState State { get; set; }
+    public JobState State { get; set; }
 
     [Range(0, 100)]
     public byte? Progress { get; set; }

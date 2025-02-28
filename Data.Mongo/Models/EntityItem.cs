@@ -24,7 +24,7 @@ public sealed record EntityItem
 
     public string? Command { get; set; }
 
-    public ActiveRestingState State { get; set; }
+    public JobState State { get; set; }
 
     public string? Description { get; set; }
 

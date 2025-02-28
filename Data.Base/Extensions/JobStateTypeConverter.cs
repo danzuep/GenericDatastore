@@ -4,43 +4,43 @@ namespace Data.Base.Extensions;
 
 public static class JobStateTypeConverter
 {
-    private static readonly Dictionary<JobCommand, ActiveRestingState> _jobCommandToJobStateMap = new()
+    private static readonly Dictionary<JobCommand, JobState> _jobCommandToJobStateMap = new()
     {
-        { JobCommand.Unknown, ActiveRestingState.Unknown },
-        { JobCommand.Create, ActiveRestingState.Pending },
-        { JobCommand.Run, ActiveRestingState.Running },
-        { JobCommand.Suspend, ActiveRestingState.Suspended },
-        { JobCommand.Delete, ActiveRestingState.Deleted },
+        { JobCommand.Unknown, JobState.Unknown },
+        { JobCommand.Create, JobState.Pending },
+        { JobCommand.Run, JobState.Running },
+        { JobCommand.Suspend, JobState.Suspended },
+        { JobCommand.Delete, JobState.Deleted },
     };
 
-    public static ActiveRestingState GetNextState(this JobCommand command)
+    public static JobState GetNextState(this JobCommand command)
     {
-        _ = _jobCommandToJobStateMap.TryGetValue(command, out ActiveRestingState nextState);
+        _ = _jobCommandToJobStateMap.TryGetValue(command, out JobState nextState);
         return nextState;
     }
 
-    public static Lazy<ActiveRestingState[]> AllJobStateTypes =>
-        new(() => Enum.GetValues<ActiveRestingState>());
+    public static Lazy<JobState[]> AllJobStateTypes =>
+        new(() => Enum.GetValues<JobState>());
 
     public static Lazy<JobCommand[]> AllJobUpdateTypes =>
         new(() => Enum.GetValues<JobCommand>());
 
-    public static readonly List<ActiveRestingState> ActiveStates = new()
+    public static readonly List<JobState> ActiveStates = new()
     {
-        ActiveRestingState.Running,
-        ActiveRestingState.Pending
+        JobState.Running,
+        JobState.Pending
     };
 
-    public static readonly List<ActiveRestingState> RestingStates = new()
+    public static readonly List<JobState> RestingStates = new()
     {
-        ActiveRestingState.Completed,
-        ActiveRestingState.Suspended,
-        ActiveRestingState.Deleted
+        JobState.Completed,
+        JobState.Suspended,
+        JobState.Deleted
     };
 
-    public static bool IsActiveState(this ActiveRestingState state) =>
+    public static bool IsActiveState(this JobState state) =>
         ActiveStates.Contains(state);
 
-    public static bool IsRestingState(this ActiveRestingState state) =>
+    public static bool IsRestingState(this JobState state) =>
         RestingStates.Contains(state);
 }

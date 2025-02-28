@@ -4,7 +4,7 @@ public sealed record DatastoreItemHistory
 {
     public DateTime Updated { get; set; }
 
-    public ActiveRestingState State { get; set; }
+    public JobState State { get; set; }
 
     public string? Result { get; set; }
 

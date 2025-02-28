@@ -33,7 +33,7 @@ internal sealed record EntityItem : EntityBase
 
     [Column(Order = 5)]
     [Comment("The state of the job or work item")]
-    public ActiveRestingState State { get; set; }
+    public JobState State { get; set; }
 
     [Column(Order = 6)]
     [MaxLength(500)]

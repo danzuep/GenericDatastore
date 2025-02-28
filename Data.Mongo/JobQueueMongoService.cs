@@ -170,14 +170,14 @@ public sealed class JobQueueMongoService : IDisposable //IDatastoreRepository<Wo
         return filter;
     }
 
-    internal FilterDefinition<EntityItem> GetJobFilter(string? topic, string? region, IEnumerable<ActiveRestingState> states, bool includeDeleted = false)
+    internal FilterDefinition<EntityItem> GetJobFilter(string? topic, string? region, IEnumerable<JobState> states, bool includeDeleted = false)
     {
         var builder = Builders<EntityItem>.Filter;
         var topicFilter = GetTopicFilter(builder, topic);
         var regionFilter = GetRegionFilter(builder, region);
         var stateFilter = states != null && states.Any() ?
             builder.In(record => record.State, states) : includeDeleted ? null :
-            builder.Ne(record => record.State, ActiveRestingState.Deleted);
+            builder.Ne(record => record.State, JobState.Deleted);
         var filter = And(builder, topicFilter, regionFilter, stateFilter);
         return filter;
     }
@@ -212,7 +212,7 @@ public sealed class JobQueueMongoService : IDisposable //IDatastoreRepository<Wo
     }
 
     private static readonly UpdateDefinition<EntityItem> JobDeletedUpdateDefinition =
-        Builders<EntityItem>.Update.Set(x => x.State, ActiveRestingState.Deleted);
+        Builders<EntityItem>.Update.Set(x => x.State, JobState.Deleted);
 
     private static readonly ReplaceOptions UpsertReplace = new() { IsUpsert = true };
 
@@ -262,7 +262,7 @@ public sealed class JobQueueMongoService : IDisposable //IDatastoreRepository<Wo
         try
         {
             var workItem = jobItem.ToWorkItem();
-            if (workItem.State == ActiveRestingState.Deleted)
+            if (workItem.State == JobState.Deleted)
             {
                 _logger.Log(LogLevel.Warning, "Update method used to delete JobID {JobId}.", workItem.Id);
                 if (_dbOptions.DbRecordExpiry == TimeSpan.Zero)
@@ -389,7 +389,7 @@ public sealed class JobQueueMongoService : IDisposable //IDatastoreRepository<Wo
         {
             var builder = Builders<EntityItem>.Filter;
             var expiryFilter = builder.Where(record => record.Expiry.HasValue && record.Expiry.Value > DateTime.UtcNow);
-            var stateFilter = builder.Eq(record => record.State, ActiveRestingState.Deleted);
+            var stateFilter = builder.Eq(record => record.State, JobState.Deleted);
             var filter = builder.And(expiryFilter, stateFilter);
             var result = await _jobs!.DeleteManyAsync(filter, cancellationToken).ConfigureAwait(false);
             _logger.Log(LogLevel.Debug, "{Count} expired job(s) deleted from the database.", result.DeletedCount);
